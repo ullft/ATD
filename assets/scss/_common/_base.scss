@@ -1,0 +1,143 @@
+@use "../_global/import" as global;
+//// メディアクエリ用スタイル
+._ {
+  &pc {
+    display: block;
+    @include global.media_queries() {
+      display: none;
+    }
+  }
+  &sp {
+    display: none;
+    @include global.media_queries() {
+      display: block;
+    }
+  }
+}
+//// JS用スタイル
+.js- {
+  &body {
+    &--open {
+      @include global.media_queries(tab) {
+        .header {
+          &-icon {
+            i {
+              &:nth-child(1) {
+                transform: translateY(8px) rotate(-45deg);
+              }
+              &:nth-child(2) {
+                opacity: 0;
+              }
+              &:nth-child(3) {
+                transform: translateY(-8px) rotate(45deg);
+              }
+            }
+          }
+          &-nav {
+            visibility: visible;
+            opacity: 1;
+            &-item {
+              animation-name: header_nav_animation_sp;
+              animation-duration: 1s;
+              animation-fill-mode: forwards;
+              opacity: 0;
+              &:nth-child(1) {
+                animation-delay: 0.2s;
+              }
+              &:nth-child(2) {
+                animation-delay: 0.3s;
+              }
+              &:nth-child(3) {
+                animation-delay: 0.4s;
+              }
+              &:nth-child(4) {
+                animation-delay: 0.5s;
+              }
+              &:nth-child(5) {
+                animation-delay: 0.6s;
+              }
+              @keyframes header_nav_animation_sp {
+                0% {
+                  opacity: 0;
+                  transform: translateY(30px);
+                }
+                100% {
+                  opacity: 1;
+                  transform: translateY(0);
+                }
+              }
+            }
+          }
+        }
+        .main {
+          opacity: 0;
+        }
+      }
+    }
+  }
+  &c- {
+    &icon {
+      &--open {
+        &::after {
+          opacity: 0;
+        }
+      }
+    }
+  }
+}
+////共通スタイル
+.body {
+  font-family: global.$font_default;
+  @include global.font_size(14);
+  color: global.$color_black;
+  font-weight: 300;
+  line-height: 1.6;
+  letter-spacing: 5px;
+  word-break: break-all;
+  @include global.media_queries() {
+    @include global.font_size(12);
+    letter-spacing: 3px;
+  }
+}
+//// ローディング用スタイル
+.loading {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: global.$color_white;
+  position: relative;
+  z-index: 1;
+  &-img {
+    @include global.media_queries(pc) {
+      width: 10%;
+    }
+    @include global.media_queries(tab) {
+      width: 10%;
+    }
+    @include global.media_queries() {
+      width: 15%;
+    }
+  }
+  &-after {
+    display: none;
+    width: 100%;
+    position: relative;
+  }
+}
+//// 背景用スタイル
+.bg {
+  width: 100%;
+  height: 100%;
+  background: rgba(3, 3, 3, 0.4);
+  position: absolute;
+  top: 0;
+  &-video {
+    position: absolute;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
